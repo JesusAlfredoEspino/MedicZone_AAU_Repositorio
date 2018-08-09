@@ -16,7 +16,7 @@
     partes del sistema
  */
 package main;
-
+//jaja xdxds
 import controlador.ControladorInicioSesion;
 import modelo.ModeloInicioSesion;
 import vista.Desktop_InicioSesion;
