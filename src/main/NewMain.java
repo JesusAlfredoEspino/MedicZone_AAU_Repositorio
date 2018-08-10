@@ -11,6 +11,7 @@
  * Jose Vizcarra
  * Marcos Castro
  * Kevin Marquez XDDDD este que hace aquí XDDDDDDDDDDDDDDDDDD
+ps deberiamos quitarlo :v
 
     Archivo del main, en el cual se utilizan hilos para controlar las diversas
     partes del sistema
