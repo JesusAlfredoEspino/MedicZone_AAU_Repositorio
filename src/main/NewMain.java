@@ -10,7 +10,7 @@
  * Erick Medina
  * Jose Vizcarra
  * Marcos Castro
- * Kevin Marquez
+ * Kevin Marquez XDDDD este que hace aquí XDDDDDDDDDDDDDDDDDD
 
     Archivo del main, en el cual se utilizan hilos para controlar las diversas
     partes del sistema
