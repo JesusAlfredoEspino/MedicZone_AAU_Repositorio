@@ -14,7 +14,7 @@
     Archivo del main, en el cual se utilizan hilos para controlar las diversas
     partes del sistema
  */
-//EL CHUY ES UN DIOS!!!!!!
+//EL CHUY ES UN DIOS!!!!!! xdxdxds
 package main;
 //jaja xdxds
 import controlador.ControladorInicioSesion;
