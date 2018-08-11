@@ -6,7 +6,7 @@
  * INF 5-1
  *
  * Desarrolladores:
- * Jesus Espino
+ * Jesus Espino #Mirrodilla-shonen
  * Erick Medina
  * Jose Vizcarra
  * Marcos Castro
