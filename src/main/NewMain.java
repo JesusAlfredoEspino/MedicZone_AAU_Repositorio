@@ -6,7 +6,7 @@
  * INF 5-1
  *
  * Desarrolladores:
- * Jesus Espino #Mirrodilla-shonen
+ * Jesus Espino #Mirrodilla-shonen G O   B E Y O N D    P L U S    U L T R A
  * Erick Medina
  * Jose Vizcarra
  * Marcos Castro
