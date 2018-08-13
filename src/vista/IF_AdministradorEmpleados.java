@@ -91,6 +91,7 @@ public class IF_AdministradorEmpleados extends javax.swing.JInternalFrame {
         Administrador_Empleados_Edad_Txt = new javax.swing.JTextField();
         Administrador_Empleados_Actualizar_Btn = new javax.swing.JButton();
         Administrador_Empleados_Limpiar_Btn = new javax.swing.JButton();
+        Administrador_Empleados_Eliminar_Btn = new javax.swing.JButton();
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
@@ -436,30 +437,46 @@ public class IF_AdministradorEmpleados extends javax.swing.JInternalFrame {
             }
         });
 
+        Administrador_Empleados_Eliminar_Btn.setBackground(new java.awt.Color(255, 255, 255));
+        Administrador_Empleados_Eliminar_Btn.setFont(new java.awt.Font("Calibri", 0, 22)); // NOI18N
+        Administrador_Empleados_Eliminar_Btn.setText("Eliminar");
+        Administrador_Empleados_Eliminar_Btn.setActionCommand("");
+        Administrador_Empleados_Eliminar_Btn.setBorder(javax.swing.BorderFactory.createEmptyBorder(4, 4, 4, 4));
+        Administrador_Empleados_Eliminar_Btn.setBorderPainted(false);
+        Administrador_Empleados_Eliminar_Btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Administrador_Empleados_Eliminar_BtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Administrador_Empleados_Mostrar_CBox, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Administrador_Empleados_OrdenarPor_CBox, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addComponent(Administrador_Empleados_Limpiar_Btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Administrador_Empleados_Actualizar_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Administrador_Empleados_Insertar_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Administrador_Empleados_Mostrar_CBox, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Administrador_Empleados_OrdenarPor_CBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(Administrador_Empleados_Limpiar_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(14, 14, 14)
+                                .addComponent(Administrador_Empleados_Eliminar_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(Administrador_Empleados_Actualizar_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Administrador_Empleados_Insertar_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
@@ -481,7 +498,8 @@ public class IF_AdministradorEmpleados extends javax.swing.JInternalFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Administrador_Empleados_Insertar_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Administrador_Empleados_Actualizar_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Administrador_Empleados_Limpiar_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Administrador_Empleados_Limpiar_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Administrador_Empleados_Eliminar_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(172, Short.MAX_VALUE))
         );
 
@@ -513,6 +531,10 @@ public class IF_AdministradorEmpleados extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_Administrador_Empleados_Limpiar_BtnActionPerformed
 
+    private void Administrador_Empleados_Eliminar_BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Administrador_Empleados_Eliminar_BtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Administrador_Empleados_Eliminar_BtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton Administrador_Empleados_Actualizar_Btn;
@@ -523,6 +545,7 @@ public class IF_AdministradorEmpleados extends javax.swing.JInternalFrame {
     public javax.swing.JTextField Administrador_Empleados_Curp_Txt;
     public javax.swing.JTextField Administrador_Empleados_Direccion_Txt;
     public javax.swing.JTextField Administrador_Empleados_Edad_Txt;
+    public javax.swing.JButton Administrador_Empleados_Eliminar_Btn;
     public javax.swing.JTextField Administrador_Empleados_EstadoCivil_Txt;
     public javax.swing.JComboBox<String> Administrador_Empleados_Estado_CBox;
     public org.jdesktop.swingx.JXDatePicker Administrador_Empleados_FechaNacimiento_DPicker;

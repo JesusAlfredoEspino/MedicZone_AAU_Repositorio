@@ -739,7 +739,7 @@ public class ModeloAdministrador {
             Connection con = conexion.abrirConexion();
             Statement s = con.createStatement();
             try{
-                ResultSet rs = s.executeQuery("select id_Emp from empleados where Tipo_Emp = 'Recepcionista' and id_Emp = '"+idEmp+"';");
+                ResultSet rs = s.executeQuery("select id_Emp from empleados where id_Emp = '"+idEmp+"';");
                 
                 if(rs.next())
                 {
@@ -1063,22 +1063,6 @@ public class ModeloAdministrador {
         }
             
         return "";
-    }
-    public boolean citaEliminar(String citaId){
-        //como solucionar si existen datoscita o utensilios de una cita?
-        //lo checaré en el controlador
-        try{
-            Connection con = conexion.abrirConexion();
-            Statement s = con.createStatement();
-            int registro = s.executeUpdate(
-            "delete from citas where id_Cita = " + citaId + ";"
-            );
-            conexion.cerrarConexion(con);
-            return true;
-        }catch(SQLException e){
-            e.getMessage();
-            return false;
-        }
     }
     public boolean citasExisteUtensilios(String idCita)
     {
@@ -1836,4 +1820,119 @@ public class ModeloAdministrador {
         }
         return false;
     }
+    public boolean empleadosEliminar(String emId){
+        try{
+            Connection con = conexion.abrirConexion();
+            Statement s = con.createStatement();
+            int registro = s.executeUpdate(
+            "delete from empleados where id_Emp = " + emId + ";");
+            conexion.cerrarConexion(con);
+            return true;
+        }catch(SQLException e){
+            e.getMessage();
+            return false;
+        }
+       
+    }
+    public boolean doctoresEliminar(String docId){
+        try{
+            Connection con = conexion.abrirConexion();
+            Statement s = con.createStatement();
+            int registro = s.executeUpdate(
+            "delete from doctores where id_Emp = " + docId + ";"
+            );
+            conexion.cerrarConexion(con);
+            return true;
+        }catch(SQLException e){
+            e.getMessage();
+            return false;
+        }
+    }
+    public String obtenerTipoEmpleado(String empId)
+    {
+        try{
+            Connection con = conexion.abrirConexion();
+            Statement s = con.createStatement(); 
+            ResultSet rs = s.executeQuery("SELECT Tipo_Emp FROM empleados WHERE id_Emp= "+ empId +";");
+            String a;
+            rs.next();
+            a = rs.getString(1);
+            conexion.cerrarConexion(con);
+            return a;
+        }
+        catch(SQLException e)
+        {
+          return null;    
+        }
+    }
+    public boolean eliminarPacientes(String paId)
+    {
+        try
+        {
+           Connection con = conexion.abrirConexion();
+            Statement s = con.createStatement();
+            int registro = s.executeUpdate(
+            "delete from pacientes where id_Pac = " + paId + ";"
+            );
+            conexion.cerrarConexion(con);
+            return true;
+        }catch(SQLException e){
+            e.getMessage();
+            return false;
+        } 
+    }
+    public boolean eliminarCitas(String ciId)
+    {
+        try
+        {
+           Connection con = conexion.abrirConexion();
+            Statement s = con.createStatement();
+            int registro = s.executeUpdate(
+            "delete from citas where id_Cita = " + ciId + ";"
+            );
+            conexion.cerrarConexion(con);
+            return true;
+        }catch(SQLException e){
+            e.getMessage();
+            return false;
+        } 
+    }
+//    public DefaultTableModel mostrarCitas()
+//    {   try
+//        {
+//            Connection con = conexion.abrirConexion();
+//            Statement s = con.createStatement();
+//            DefaultTableModel modelo;
+//            try
+//            {
+//                ResultSet rs = s.executeQuery("select citas.id_Cita, empleados.CURP_Emp, pacientes.CURP_Pac, pacientes.id_Pac, citas.Fecha_Cita from citas, empleados, pacientes");
+//                modelo = new DefaultTableModel();
+//                
+//                ResultSetMetaData rsMd = rs.getMetaData();
+//                int cantidadColumnas = rsMd.getColumnCount();
+//                
+//                for(int i=1;i <=cantidadColumnas;i++){
+//                    modelo.addColumn(rsMd.getColumnLabel(i));
+//                }
+//                while(rs.next()){
+//                    Object[] fila = new Object[cantidadColumnas];
+//                    for(int i = 0; i<cantidadColumnas; i++){
+//                        fila[i]=rs.getObject(i+1);
+//                        
+//                        
+//                    }
+//                    modelo.addRow(fila);
+//                }
+//                System.out.println("asdf");
+//                return modelo;
+//            }finally{
+//                conexion.cerrarConexion(con);
+//            }
+//        }
+//        catch(SQLException e){
+//            System.out.println(e.getMessage());
+//            return null;
+//            }                                  
+//    }
 }
+

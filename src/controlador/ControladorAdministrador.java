@@ -126,7 +126,6 @@ public class ControladorAdministrador implements ActionListener, MouseListener, 
         this.AC.Administrador_Citas_Limpiar_Btn.addActionListener(this);
         this.AC.Administrador_Citas_TablaCitas_Table.addMouseListener(this);
         this.AC.Administrador_Citas_Eliminar_Btn.addActionListener(this);
-        this.AC.Administrador_Citas_Eliminar_Btn.addActionListener(this);
         this.AC.Administrador_Citas_Insertar_Btn.addActionListener(this);
         this.AC.Administrador_Citas_Actualizar_Btn.addActionListener(this);
         
@@ -144,6 +143,7 @@ public class ControladorAdministrador implements ActionListener, MouseListener, 
         this.AE.Administrador_Empleados_Limpiar_Btn.addActionListener(this);
         this.AE.Administrador_Empleados_Insertar_Btn.addActionListener(this);
         this.AE.Administrador_Empleados_Actualizar_Btn.addActionListener(this);
+        this.AE.Administrador_Empleados_Eliminar_Btn.addActionListener(this);
         PropertyChangeListener listener = new PropertyChangeListener() {
             public void propertyChange(PropertyChangeEvent e) {
                 if ("date".equals(e.getPropertyName())) {
@@ -158,6 +158,7 @@ public class ControladorAdministrador implements ActionListener, MouseListener, 
         this.AD.Administrador_Doctores_Limpiar_Btn.addActionListener(this);
         this.AD.Administrador_Doctores_Actualizar_Btn.addActionListener(this);
         this.AD.Administrador_Doctores_Insertar_Btn.addActionListener(this);
+        this.AD.Administrador_Doctores_Eliminar_Btn.addActionListener(this);
         
         this.AP.Administrador_Pacientes_Mostrar_CBox.addActionListener(this);
         this.AP.Administrador_Pacientes_OrdenarPor_CBox.addActionListener(this);
@@ -173,6 +174,7 @@ public class ControladorAdministrador implements ActionListener, MouseListener, 
         this.AP.Administrador_Pacientes_Limpiar_Btn.addActionListener(this);
         this.AP.Administrador_Pacientes_Insertar_Btn.addActionListener(this);
         this.AP.Administrador_Pacientes_Actualizar_Btn.addActionListener(this);
+        this.AP.Administrador_Pacientes_Eliminar_Btn.addActionListener(this);
         
         this.ADC.Administrador_DatosCitas_OrdenarPor_CBox.addActionListener(this);
         this.ADC.Administrador_DatosCitas_TablaCitas_Table.addMouseListener(this);
@@ -307,6 +309,7 @@ public class ControladorAdministrador implements ActionListener, MouseListener, 
         if(e.getSource() == vistaDesktop.Administrador_Desktop_Citas_Btn)
         {
             AC.Administrador_Citas_TablaCitas_Table.setModel(modelo.citasCitasConsultar("",""));
+            //AC.Administrador_Citas_TablaCitas_Table.setModel(modelo.mostrarCitas());
             AC.toFront();
         }
         if(e.getSource() == vistaDesktop.Administrador_Desktop_DatosCita_Btn)
@@ -359,8 +362,6 @@ public class ControladorAdministrador implements ActionListener, MouseListener, 
         }
         if(e.getSource() == AAC.Administrador_Articulos_Eliminar_Btn)
         {
-            if(vaciosONoTxt(AAC.Administrador_Articulos_Id_Txt,AAC.Administrador_Articulos_NombreArticulo_Txt,AAC.Administrador_Articulos_ExistenciaArticulo_Txt))
-            {
                 if(!modelo.articulosExisteUtensilio(AAC.Administrador_Articulos_Id_Txt.getText()))
                 {
                     if(modelo.articulosEliminar(AAC.Administrador_Articulos_Id_Txt.getText()))
@@ -369,11 +370,16 @@ public class ControladorAdministrador implements ActionListener, MouseListener, 
                         AAC.Administrador_Articulos_TablaArticulos_Table.setModel(modelo.articulosArticulosConsultar("",""));
                         this.articulosLimpiarCampos();
                     }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(null, "Error: TIENE CAMPOS DEPENDIENTES");
+
+                    }
                 }
-            }
-            else
-                JOptionPane.showMessageDialog(null, "Error: Campos vacios o con caracteres inválidos");
-            
+                else
+                {
+                    JOptionPane.showMessageDialog(null, "Error: ARTICULO UTILIZADO EN UNA CITA");
+                }
         }
         if(e.getSource() == AAC.Administrador_Articulos_Actualizar_Btn)
         {//JOptionPane.showMessageDialog(null, "Error: Campos vacios o con caracteres inválidos");
@@ -416,19 +422,16 @@ public class ControladorAdministrador implements ActionListener, MouseListener, 
         }
         if(e.getSource() == AC.Administrador_Citas_Eliminar_Btn)
         {
-            if(vaciosONoTxt(AC.Administrador_Citas_Id_Txt) && !modelo.citasExisteUtensilios(AC.Administrador_Citas_Id_Txt.getText()) && !modelo.citasExisteDatosCita(AC.Administrador_Citas_Id_Txt.getText()))
-            {
-                if(modelo.citaEliminar(AC.Administrador_Citas_Id_Txt.getText()))
+                if(modelo.eliminarCitas(AC.Administrador_Citas_Id_Txt.getText()))
                 {
                     JOptionPane.showMessageDialog(null, "Resgistro eliminado exitosamente");
                     AC.Administrador_Citas_TablaCitas_Table.setModel(modelo.citasCitasConsultar("",""));
                     this.citasLimpiarCampos();
                 }
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "Error: Campos vacios o con caracteres inválidos");
-                //ventanita de que llene todos los campos y con caracteres validos
-            }
+                else
+                {
+                    JOptionPane.showMessageDialog(null, "¡¡ERROR¡¡ TIENE CAMPOS DEPENDIENTES");
+                }
         }
         if(e.getSource() == AC.Administrador_Citas_Insertar_Btn)
         {
@@ -531,7 +534,7 @@ public class ControladorAdministrador implements ActionListener, MouseListener, 
         }
         if(e.getSource() == AUS.Administrador_Usuarios_Insertar_Btn)
         {
-            if(vaciosONoTxt(AUS.Administrador_Usuarios_Id_Table,AUS.Administrador_Usuarios_Usuario_Txt,AUS.Administrador_Usuarios_Contrasena_Txt))
+            if(vaciosONoTxt(AUS.Administrador_Usuarios_Usuario_Txt,AUS.Administrador_Usuarios_Contrasena_Txt))
             {
                 if(modelo.usuariosInsertar(AUS.Administrador_Usuarios_IdEmpleado_Txt.getText(),AUS.Administrador_Usuarios_Usuario_Txt.getText(),AUS.Administrador_Usuarios_Contrasena_Txt.getText(),AUS.Administrador_Usuarios_Tipo_Txt.getSelectedItem().toString()))
                 {
@@ -589,6 +592,21 @@ public class ControladorAdministrador implements ActionListener, MouseListener, 
                 //ventanita de que llene todos los campos y con caracteres validos
             }
         }
+        if(e.getSource() == AE.Administrador_Empleados_Eliminar_Btn)
+        {
+            if(vaciosONoTxt(AE.Administrador_Empleados_Nombre_Txt, AE.Administrador_Empleados_ApellidoPaterno_Txt, AE.Administrador_Empleados_ApellidoMaterno_Txt, AE.Administrador_Empleados_Edad_Txt, AE.Administrador_Empleados_Correo_Txt, AE.Administrador_Empleados_Direccion_Txt, AE.Administrador_Empleados_Telefono_Txt, AE.Administrador_Empleados_Celular_Txt, AE.Administrador_Empleados_Rfc_Txt, AE.Administrador_Empleados_Curp_Txt, AE.Administrador_Empleados_Tipo_Txt, AE.Administrador_Empleados_EstadoCivil_Txt))
+            {
+                if(modelo.empleadosEliminar(AE.Administrador_Empleados_Id_Txt.getText()))
+                {
+                    JOptionPane.showMessageDialog(null, "Empleado borrado exitosamente");
+                    AE.Administrador_Empleados_TablaEmpleados_Table.setModel(modelo.empleadosEmpleadosConsultar());
+                    this.empleadosLimpiarCampos();
+                }
+                else
+                    JOptionPane.showMessageDialog(null, "!!ERROR!! TIENE CAMPOS DEPENDIENTES");
+            }
+        }
+
         if(e.getSource() == AE.Administrador_Empleados_Actualizar_Btn)
         {
             if(vaciosONoTxt(AE.Administrador_Empleados_Id_Txt, AE.Administrador_Empleados_Nombre_Txt, AE.Administrador_Empleados_ApellidoPaterno_Txt, AE.Administrador_Empleados_ApellidoMaterno_Txt, AE.Administrador_Empleados_Edad_Txt, AE.Administrador_Empleados_Correo_Txt, AE.Administrador_Empleados_Direccion_Txt, AE.Administrador_Empleados_Telefono_Txt, AE.Administrador_Empleados_Celular_Txt, AE.Administrador_Empleados_Rfc_Txt, AE.Administrador_Empleados_Curp_Txt, AE.Administrador_Empleados_Tipo_Txt, AE.Administrador_Empleados_EstadoCivil_Txt))
@@ -636,24 +654,46 @@ public class ControladorAdministrador implements ActionListener, MouseListener, 
                 //ventanita de que llene todos los campos y con caracteres validos
             }
         }
+        if(e.getSource() == AD.Administrador_Doctores_Eliminar_Btn)
+        {
+            if(vaciosONoTxt(AD.Administrador_Doctores_Especialidad_Txt, AD.Administrador_Doctores_Id_Txt, AD.Administrador_Doctores_NumeroCedula_Txt))
+            {
+               if(modelo.doctoresEliminar(AD.Administrador_Doctores_Id_Txt.getText()))
+               {
+                    JOptionPane.showMessageDialog(null, "Doctor eliminado exitosamente");
+                    AD.Administrador_Doctores_TablaDoctores_Table.setModel(modelo.doctoresDoctoresConsultar());
+                    this.doctoresLimpiarCampos();
+               }
+            }
+            else
+                JOptionPane.showMessageDialog(null, "Error: Campos vacios o con caracteres inválidos");
+
+        }
         if(e.getSource() == AD.Administrador_Doctores_Insertar_Btn)
         {
+            String tipo = modelo.obtenerTipoEmpleado(AD.Administrador_Doctores_Id_Txt.getText());
             if(vaciosONoTxt(AD.Administrador_Doctores_Id_Txt,AD.Administrador_Doctores_Especialidad_Txt,AD.Administrador_Doctores_NumeroCedula_Txt))
             {
                 if(modelo.ExisteEmpleado(AD.Administrador_Doctores_Id_Txt.getText()))
                 {
-                    if(modelo.doctoresInsertar(AD.Administrador_Doctores_Id_Txt.getText(),AD.Administrador_Doctores_Especialidad_Txt.getText(),AD.Administrador_Doctores_NumeroCedula_Txt.getText()))
+                    if(tipo.equals("Doctor"))  
                     {
-                        JOptionPane.showMessageDialog(null, "Resgistro insertado exitosamente");
-                        String ordPor = AD.Administrador_Doctores_OrdenarPor_CBox.getSelectedItem().toString();
-                        AD.Administrador_Doctores_TablaDoctores_Table.setModel(modelo.doctoresDoctoresConsultar("", ordPor));
-                        this.doctoresLimpiarCampos();
+                        if(modelo.doctoresInsertar(AD.Administrador_Doctores_Id_Txt.getText(),AD.Administrador_Doctores_Especialidad_Txt.getText(),AD.Administrador_Doctores_NumeroCedula_Txt.getText()))
+                        {
+                            JOptionPane.showMessageDialog(null, "Resgistro insertado exitosamente");
+                            String ordPor = AD.Administrador_Doctores_OrdenarPor_CBox.getSelectedItem().toString();
+                            AD.Administrador_Doctores_TablaDoctores_Table.setModel(modelo.doctoresDoctoresConsultar("", ordPor));
+                            this.doctoresLimpiarCampos();
+                        }
                     }
+                    else
+                        JOptionPane.showMessageDialog(null, "Error: Ese empleado no es Doctor");
+                    System.out.println(""+tipo);
+        
                 }
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "Error: Campos vacios o con caracteres inválidos");
-                //ventanita de que llene todos los campos y con caracteres validos
+                else
+                    JOptionPane.showMessageDialog(null, "Error: No existe ese empleado");
+ 
             }
         }
         if(e.getSource() == AP.Administrador_Pacientes_Mostrar_CBox || e.getSource() == AP.Administrador_Pacientes_OrdenarPor_CBox)
@@ -681,7 +721,31 @@ public class ControladorAdministrador implements ActionListener, MouseListener, 
             }
             else{
                 JOptionPane.showMessageDialog(null, "Error: Campos vacios o con caracteres inválidos");
-                //ventanita de que llene todos los campos y con caracteres validos
+                //vJOptionPaneentanita de que llene todos los campos y con caracteres validos
+            }
+        }
+        if(e.getSource() == AP.Administrador_Pacientes_Eliminar_Btn)
+        {
+            if(vaciosONoTxt(AP.Administrador_Pacientes_Nombre_Txt, AP.Administrador_Pacientes_ApellidoPaterno_Txt, AP.Administrador_Pacientes_ApellidoMaterno_Txt, AP.Administrador_Pacientes_Edad_Txt, AP.Administrador_Pacientes_Correo_Txt, AP.Administrador_Pacientes_Direccion_Txt, AP.Administrador_Pacientes_Telefono_Txt, AP.Administrador_Pacientes_Celular_Txt, AP.Administrador_Pacientes_Curp_Txt, AP.Administrador_Pacientes_EstadoCivil_Txt))
+            {
+                if(modelo.eliminarPacientes(AP.Administrador_Pacientes_Id_Txt.getText()))
+                {
+                    JOptionPane.showMessageDialog(null, "Paciente eliminado exitosamente");
+                    String ordPor = AP.Administrador_Pacientes_OrdenarPor_CBox.getSelectedItem().toString();
+                    String mostra = AP.Administrador_Pacientes_Mostrar_CBox.getSelectedItem().toString();
+                    AP.Administrador_Pacientes_TablaPacientes_Table.setModel(modelo.pacientesPacientesConsultar(mostra, ordPor));
+                    this.pacientesLimpiarCampos();
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null, "!!ERROR!! TIENE CAMPOS DEPENDIENTES");
+
+                }
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "Error: Campos vacios o con caracteres inválidos");
+                //vJOptionPaneentanita de que llene todos los campos y con caracteres validos
             }
         }
         if(e.getSource() == AP.Administrador_Pacientes_Actualizar_Btn)
@@ -712,19 +776,17 @@ public class ControladorAdministrador implements ActionListener, MouseListener, 
         }
         if(e.getSource() == ADC.Administrador_DatosCitas_Eliminar_Btn)
         {
-            if(vaciosONoTxt(ADC.Administrador_DatosCitas_Id_Txt,ADC.Administrador_DatosCitas_IdCita_Txt))
-            {
                 if(modelo.datosCitaEliminar(ADC.Administrador_DatosCitas_Id_Txt.getText()))
                 {
                     JOptionPane.showMessageDialog(null, "Resgistro eliminado exitosamente");
                     ADC.Administrador_DatosCitas_TablaDatosCitas_Table.setModel(modelo.datosCitaDatosCitaConsultar(ADC.Administrador_DatosCitas_IdCita_Txt.getText()));
                     usuariosLimpiarCampos();
                 }
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "Error: Campos vacios o con caracteres inválidos");
-                //ventanita de que llene todos los campos y con caracteres validos
-            }
+                else
+                {
+                    JOptionPane.showMessageDialog(null, "Error: TIENE CAMPOS DEPENDIENTES");
+
+                }
         }
         if(e.getSource() == ADC.Administrador_DatosCitas_Actualizar_Btn)
         {
@@ -764,8 +826,6 @@ public class ControladorAdministrador implements ActionListener, MouseListener, 
         }
         if(e.getSource() == AUT.Administrador_Utensilios_Eliminar_Btn)
         {
-            if(vaciosONoTxt(AUT.Administrador_Utensilios_IdRegistroUtensilios_Txt))
-            {
                 if(modelo.utensiliosEliminar(AUT.Administrador_Utensilios_IdRegistroUtensilios_Txt.getText()))
                 {
                     JOptionPane.showMessageDialog(null, "Resgistro eliminado exitosamente");
@@ -773,11 +833,11 @@ public class ControladorAdministrador implements ActionListener, MouseListener, 
                     AUT.Administrador_Utensilios_TablaUtensilios_Table.setModel(modelo.utensiliosUtensiliosConsultar("0"));
                     utensiliosLimpiarCampos();
                 }
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "Error: Campos vacios o con caracteres inválidos");
-                //ventanita de que llene todos los campos y con caracteres validos
-            }
+                else
+                {
+                    JOptionPane.showMessageDialog(null, "Error: TIENE CAMPOS DEPENDIENTES");
+
+                }
         }
         if(e.getSource() == AUT.Administrador_Utensilios_Limpira_Btn)
         {
@@ -822,7 +882,7 @@ public class ControladorAdministrador implements ActionListener, MouseListener, 
             
         }
     }
-
+    
     
     
     @Override

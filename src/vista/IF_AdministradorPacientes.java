@@ -85,6 +85,7 @@ public class IF_AdministradorPacientes extends javax.swing.JInternalFrame {
         Administrador_Pacientes_Edad_Txt = new javax.swing.JTextField();
         Administrador_Pacientes_Actualizar_Btn = new javax.swing.JButton();
         Administrador_Pacientes_Limpiar_Btn = new javax.swing.JButton();
+        Administrador_Pacientes_Eliminar_Btn = new javax.swing.JButton();
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
@@ -353,7 +354,7 @@ public class IF_AdministradorPacientes extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel133)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 755, Short.MAX_VALUE)
+            .addComponent(jScrollPane2)
         );
         jPanel21Layout.setVerticalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -389,6 +390,18 @@ public class IF_AdministradorPacientes extends javax.swing.JInternalFrame {
             }
         });
 
+        Administrador_Pacientes_Eliminar_Btn.setBackground(new java.awt.Color(255, 255, 255));
+        Administrador_Pacientes_Eliminar_Btn.setFont(new java.awt.Font("Calibri", 0, 22)); // NOI18N
+        Administrador_Pacientes_Eliminar_Btn.setText("Eliminar");
+        Administrador_Pacientes_Eliminar_Btn.setActionCommand("");
+        Administrador_Pacientes_Eliminar_Btn.setBorder(javax.swing.BorderFactory.createEmptyBorder(4, 4, 4, 4));
+        Administrador_Pacientes_Eliminar_Btn.setBorderPainted(false);
+        Administrador_Pacientes_Eliminar_Btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Administrador_Pacientes_Eliminar_BtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -406,14 +419,16 @@ public class IF_AdministradorPacientes extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Administrador_Pacientes_OrdenarPor_CBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(Administrador_Pacientes_Limpiar_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Administrador_Pacientes_Limpiar_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Administrador_Pacientes_Actualizar_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Administrador_Pacientes_Eliminar_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Administrador_Pacientes_Actualizar_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Administrador_Pacientes_Insertar_Btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(Administrador_Pacientes_Insertar_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1)
                     .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(203, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -434,8 +449,9 @@ public class IF_AdministradorPacientes extends javax.swing.JInternalFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Administrador_Pacientes_Insertar_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Administrador_Pacientes_Actualizar_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Administrador_Pacientes_Limpiar_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(213, Short.MAX_VALUE))
+                    .addComponent(Administrador_Pacientes_Limpiar_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Administrador_Pacientes_Eliminar_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(221, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -464,6 +480,10 @@ public class IF_AdministradorPacientes extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_Administrador_Pacientes_Limpiar_BtnActionPerformed
 
+    private void Administrador_Pacientes_Eliminar_BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Administrador_Pacientes_Eliminar_BtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Administrador_Pacientes_Eliminar_BtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public org.jdesktop.swingx.JXDatePicker Administrador_Empleados_FechaNacimiento_DPicker;
@@ -475,6 +495,7 @@ public class IF_AdministradorPacientes extends javax.swing.JInternalFrame {
     public javax.swing.JTextField Administrador_Pacientes_Curp_Txt;
     public javax.swing.JTextField Administrador_Pacientes_Direccion_Txt;
     public javax.swing.JTextField Administrador_Pacientes_Edad_Txt;
+    public javax.swing.JButton Administrador_Pacientes_Eliminar_Btn;
     public javax.swing.JTextField Administrador_Pacientes_EstadoCivil_Txt;
     public javax.swing.JComboBox<String> Administrador_Pacientes_Genero_CBox;
     public javax.swing.JTextField Administrador_Pacientes_Id_Txt;
