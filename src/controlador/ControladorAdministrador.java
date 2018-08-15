@@ -4,6 +4,18 @@
  */
 package controlador;
 
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Font.FontFamily;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import modelo.ModeloAdministrador;
 import vista.Desktop_Administrador;
 import vista.IF_AdministradorArticulosCita;
@@ -23,6 +35,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -35,8 +49,11 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import org.joda.time.*;
 import java.lang.Object;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.AbstractSpinnerModel;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.SpinnerNumberModel;
 
 /**
@@ -880,6 +897,96 @@ public class ControladorAdministrador implements ActionListener, MouseListener, 
         if(e.getSource() == vistaDesktop.Administrador_Desktop_Reporte_Btn)
         {
             
+            
+            try {
+                String path="";
+                JFileChooser j=new JFileChooser();
+                j.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                int x=j.showSaveDialog(AE);
+                
+                if(x==JFileChooser.APPROVE_OPTION)
+                {
+                    path=j.getSelectedFile().getPath();
+                }
+                
+                System.out.println(path);
+                
+                Document documento=new Document();
+                
+                PdfWriter.getInstance(documento, new FileOutputStream(path+"\\"+"Reporte1.pdf"));
+                
+                documento.open();
+                
+                documento.add(new Paragraph(" "));
+                Paragraph ReporteMZ = new Paragraph(new Phrase(10f,"Reporte Medic Zone", FontFactory.getFont(FontFactory.HELVETICA, 25.0f)));
+                ReporteMZ.setAlignment(Element.ALIGN_CENTER);
+                
+                documento.add(ReporteMZ);
+                documento.add(new Paragraph(" "));
+                Paragraph CitasDelmes = new Paragraph(new Phrase(10f,"            Citas del mes", FontFactory.getFont(FontFactory.HELVETICA, 15.0f)));
+                CitasDelmes.setAlignment(Element.ALIGN_BASELINE);
+                documento.add(CitasDelmes);
+                documento.add(new Paragraph(" "));
+               
+                
+                AAC.Administrador_Reporte_Tabla.setModel(modelo.reporteCitas(" ", " "));
+                
+                PdfPTable tablaCitas = new PdfPTable(7);
+                PdfPCell c1 = new PdfPCell(new Phrase(10f,"Id Cita", FontFactory.getFont(FontFactory.HELVETICA, 10.0f)));
+                tablaCitas.addCell(c1);
+                c1 = new PdfPCell(new Phrase(10f,"Paciente", FontFactory.getFont(FontFactory.HELVETICA, 10.0f)));
+                tablaCitas.addCell(c1);
+                c1 = new PdfPCell(new Phrase(10f,"Doctor", FontFactory.getFont(FontFactory.HELVETICA, 10.0f)));
+                tablaCitas.addCell(c1);
+                c1 = new PdfPCell(new Phrase(10f,"Recepcionista", FontFactory.getFont(FontFactory.HELVETICA, 10.0f)));
+                tablaCitas.addCell(c1);
+                c1 = new PdfPCell(new Phrase(10f,"Fecha", FontFactory.getFont(FontFactory.HELVETICA, 10.0f)));
+                tablaCitas.addCell(c1);
+                c1 = new PdfPCell(new Phrase(10f,"Hora", FontFactory.getFont(FontFactory.HELVETICA, 10.0f)));
+                tablaCitas.addCell(c1);
+                c1 = new PdfPCell(new Phrase(10f,"Descripción", FontFactory.getFont(FontFactory.HELVETICA, 10.0f)));
+                tablaCitas.addCell(c1);
+                
+                for(int in = 0; in < AAC.Administrador_Reporte_Tabla.getRowCount(); in++)
+                {
+                    String idCit = AAC.Administrador_Reporte_Tabla.getValueAt(in, 0).toString();
+                    String pac = AAC.Administrador_Reporte_Tabla.getValueAt(in, 1).toString();
+                    String doc = AAC.Administrador_Reporte_Tabla.getValueAt(in, 2).toString();
+                    String rec = AAC.Administrador_Reporte_Tabla.getValueAt(in, 3).toString();
+                    String fec = AAC.Administrador_Reporte_Tabla.getValueAt(in, 4).toString();//modificar para que no se vea feo
+                    String hor = AAC.Administrador_Reporte_Tabla.getValueAt(in, 5).toString();//modificicar para que no se vea feo
+//                    String[] fechaHora = new String[2];
+//                    fechaHora = horaDeBD.split(" ");
+                    String[] horSola = new String[2];
+                    horSola = hor.split(" ");
+                    String[] horSola1 = new String[2];
+                    horSola1 = horSola[1].split(".");
+                    System.out.println(horSola[1]);
+                    System.out.println(horSola[1].split("."));
+                    String des = AAC.Administrador_Reporte_Tabla.getValueAt(in, 6).toString();
+                    
+                    tablaCitas.addCell(new PdfPCell(new Phrase(10f,idCit, FontFactory.getFont(FontFactory.HELVETICA, 10.0f))));
+                    tablaCitas.addCell(new PdfPCell(new Phrase(10f,pac, FontFactory.getFont(FontFactory.HELVETICA, 10.0f))));
+                    tablaCitas.addCell(new PdfPCell(new Phrase(10f,doc, FontFactory.getFont(FontFactory.HELVETICA, 10.0f))));
+                    tablaCitas.addCell(new PdfPCell(new Phrase(10f,rec, FontFactory.getFont(FontFactory.HELVETICA, 10.0f))));
+                    tablaCitas.addCell(new PdfPCell(new Phrase(10f,fec, FontFactory.getFont(FontFactory.HELVETICA, 10.0f))));
+                    tablaCitas.addCell(new PdfPCell(new Phrase(10f,horSola1[0], FontFactory.getFont(FontFactory.HELVETICA, 10.0f))));
+                    tablaCitas.addCell(new PdfPCell(new Phrase(10f,des, FontFactory.getFont(FontFactory.HELVETICA, 10.0f))));
+                    
+                }
+                documento.add(tablaCitas);
+                
+                documento.close();
+                System.out.println("Documento generado");
+                
+                
+            } catch (FileNotFoundException ex) {
+                System.out.println(ex.getMessage());
+                Logger.getLogger(ControladorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (DocumentException ex) {
+                System.out.println(ex.getMessage());
+                Logger.getLogger(ControladorAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
     

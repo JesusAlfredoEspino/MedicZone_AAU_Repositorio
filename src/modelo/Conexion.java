@@ -21,7 +21,7 @@ public class Conexion {
         try{
             DriverManager.registerDriver(new com.mysql.jdbc.Driver());
             con = DriverManager.getConnection(
-            "jdbc:mysql://localhost:3306/consultorio3","root","");//si fuera host no local ps pones la ip, despues de los : es el puerto
+            "jdbc:mysql://localhost:3306/consultorio","root","");//si fuera host no local ps pones la ip, despues de los : es el puerto
         }
         catch(SQLException e){
             System.out.println("No se pudo abrir la conexión");

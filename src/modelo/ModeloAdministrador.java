@@ -1897,42 +1897,53 @@ public class ModeloAdministrador {
             return false;
         } 
     }
-//    public DefaultTableModel mostrarCitas()
-//    {   try
-//        {
-//            Connection con = conexion.abrirConexion();
-//            Statement s = con.createStatement();
-//            DefaultTableModel modelo;
-//            try
-//            {
-//                ResultSet rs = s.executeQuery("select citas.id_Cita, empleados.CURP_Emp, pacientes.CURP_Pac, pacientes.id_Pac, citas.Fecha_Cita from citas, empleados, pacientes");
-//                modelo = new DefaultTableModel();
-//                
-//                ResultSetMetaData rsMd = rs.getMetaData();
-//                int cantidadColumnas = rsMd.getColumnCount();
-//                
-//                for(int i=1;i <=cantidadColumnas;i++){
-//                    modelo.addColumn(rsMd.getColumnLabel(i));
-//                }
-//                while(rs.next()){
-//                    Object[] fila = new Object[cantidadColumnas];
-//                    for(int i = 0; i<cantidadColumnas; i++){
-//                        fila[i]=rs.getObject(i+1);
-//                        
-//                        
-//                    }
-//                    modelo.addRow(fila);
-//                }
-//                System.out.println("asdf");
-//                return modelo;
-//            }finally{
-//                conexion.cerrarConexion(con);
-//            }
-//        }
-//        catch(SQLException e){
-//            System.out.println(e.getMessage());
-//            return null;
-//            }                                  
-//    }
+    
+    public DefaultTableModel reporteCitas(String fechaini, String fechafin)
+    {
+
+        try{
+            Connection con = conexion.abrirConexion();
+            Statement s = con.createStatement();
+            DefaultTableModel modelo;
+            try{
+                ResultSet rs = s.executeQuery(
+                "SELECT citas.id_Cita AS 'Id Cita', "
+                        + " CONCAT(pacientes.Nom_Pac,' ',pacientes.PApell_Pac,' ',pacientes.MApell_Pac) AS 'Paciente',"
+                        + " CONCAT(doctoresEMP.Nom_Emp,' ',doctoresEMP.PApell_Emp,' ',doctoresEMP.MApell_Emp) AS 'Doctor',"
+                        + " CONCAT(recepcionistasEMP.Nom_Emp,' ',recepcionistasEMP.PApell_Emp,' ',recepcionistasEMP.MApell_Emp) AS 'Recepcionista',"
+                        + " citas.Fecha_Cita AS 'Fecha', "
+                        + " citas.Hora_Cita AS 'Hora',"
+                        + " citas.Descripcion_Cita AS 'Descripción'"
+                        + " FROM citas, pacientes, empleados AS doctoresEMP, empleados AS recepcionistasEMP WHERE"
+                        + " citas.id_Pac = pacientes.id_Pac AND"
+                        + " citas.id_Doc = doctoresEMP.id_Emp AND"
+                        + " citas.id_Rec = recepcionistasEMP.id_Emp AND"
+                        + " citas.Estado_Cita = 1 AND"
+                        + " citas.Fecha_Cita BETWEEN '2018-08-00' AND '2018-08-31'"
+                        + ";"
+                );
+                modelo = new DefaultTableModel();
+                ResultSetMetaData rsMd = rs.getMetaData();
+                int cantidadColumnas = rsMd.getColumnCount();
+                for(int i=1;i <=cantidadColumnas;i++){
+                    modelo.addColumn(rsMd.getColumnLabel(i));
+                }
+                while(rs.next()){
+                    Object[] fila = new Object[cantidadColumnas];
+                    for(int i = 0; i<cantidadColumnas; i++){
+                        fila[i]=rs.getObject(i+1);
+                    }
+                    modelo.addRow(fila);
+                }
+                return modelo;
+            }finally{
+                conexion.cerrarConexion(con);
+            }
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
 }
 
